@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAGIS vs GAP Comparative Study</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <img src="usm-logo-full.png" alt="USM logo" class="logo" onerror="this.style.display='none'">
+  <div class="header-text">
+    <h1>Comparative Study Questionnaire<br><span class="bm">Buku Soal Selidik Kajian Perbandingan</span></h1>
+    <p class="subtitle">SAGIS (Structured Assessment of Gastrointestinal Symptoms) vs GAP (Gastrointestinal Animated Pictograms)</p>
+  </div>
+</header>
+
+<div class="progress-bar" id="progressBar">
+  <div class="progress-step active" data-step="0">A</div>
+  <div class="progress-step" data-step="1">B</div>
+  <div class="progress-step" data-step="2">C</div>
+  <div class="progress-step" data-step="3">E</div>
+</div>
+
+<main id="app">
+
+  <!-- INTRO -->
+  <section class="step" id="step-intro" data-step="intro">
+    <div class="card">
+      <h2>Introduction <span class="bm">/ Pengenalan</span></h2>
+      <p><strong>ENGLISH</strong><br>
+      Thank you for agreeing to take part in this study. You will be asked to complete two short questionnaires
+      about stomach and bowel symptoms you may have experienced over the past week. The first questionnaire uses
+      written descriptions. The second questionnaire uses short animated pictures (pictograms) showing the same
+      symptoms. Please answer both questionnaires honestly based on your own experience. There are no right or
+      wrong answers. Your information will be kept confidential and used only for research purposes. This will
+      take approximately 15-20 minutes in total.</p>
+      <p class="bm"><em><strong>BAHASA MELAYU</strong><br>
+      Terima kasih kerana bersetuju untuk menyertai kajian ini. Anda akan diminta untuk melengkapkan dua soal
+      selidik ringkas berkaitan simptom perut dan usus yang mungkin anda alami sepanjang minggu lepas. Soal
+      selidik pertama menggunakan penerangan secara tulisan. Soal selidik kedua menggunakan gambar animasi ringkas
+      (pictogram) yang menunjukkan simptom yang sama. Sila jawab kedua-dua soal selidik ini dengan jujur
+      berdasarkan pengalaman anda sendiri. Tiada jawapan betul atau salah. Maklumat anda akan dirahsiakan dan
+      hanya digunakan untuk tujuan penyelidikan. Proses ini mengambil masa kira-kira 15-20 minit.</em></p>
+      <button class="btn-next" onclick="App.goToStep(0)">Start / Mula</button>
+    </div>
+  </section>
+
+  <!-- PART A -->
+  <section class="step hidden" id="step-a" data-step="0">
+    <div class="card">
+      <h2>Part A: Patient Information <span class="bm">/ Bahagian A: Maklumat Pesakit</span></h2>
+
+      <label>Name (or Initials) <span class="bm">/ Nama (atau Inisial)</span></label>
+      <input type="text" id="name_initials">
+
+      <label>Sex <span class="bm">/ Jantina</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="sex" value="Male"> Male / Lelaki</label>
+        <label><input type="radio" name="sex" value="Female"> Female / Perempuan</label>
+      </div>
+
+      <label>Age (years) <span class="bm">/ Umur (tahun)</span></label>
+      <input type="number" id="age" min="0" max="120">
+
+      <label>Race <span class="bm">/ Bangsa</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="race" value="Malay"> Malay</label>
+        <label><input type="radio" name="race" value="Chinese"> Chinese</label>
+        <label><input type="radio" name="race" value="Indian"> Indian</label>
+        <label><input type="radio" name="race" value="Other"> Other / Lain:</label>
+        <input type="text" id="race_other" placeholder="please specify">
+      </div>
+
+      <label>Highest Education Level <span class="bm">/ Tahap Pendidikan</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="education_level" value="None/Primary"> None/Primary</label>
+        <label><input type="radio" name="education_level" value="Secondary"> Secondary</label>
+        <label><input type="radio" name="education_level" value="Tertiary"> Tertiary (Diploma/Degree+)</label>
+      </div>
+
+      <label>Contact Number (optional) <span class="bm">/ No. Telefon (pilihan)</span></label>
+      <input type="text" id="contact_number">
+
+      <label>Smoking Status <span class="bm">/ Status Merokok</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="smoking_status" value="Never"> Never</label>
+        <label><input type="radio" name="smoking_status" value="Ex-smoker"> Ex-smoker</label>
+        <label><input type="radio" name="smoking_status" value="Current smoker"> Current smoker</label>
+      </div>
+
+      <label>Do you wear spectacles/contact lenses for near vision? <span class="bm">/ Adakah anda memakai cermin mata/lensa kontak untuk penglihatan dekat?</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="wears_glasses" value="Yes"> Yes / Ya</label>
+        <label><input type="radio" name="wears_glasses" value="No"> No / Tidak</label>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-next" onclick="App.goToStep(1)">Next / Seterusnya</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART B: SAGIS -->
+  <section class="step hidden" id="step-b" data-step="1">
+    <div class="card">
+      <h2>Part B: SAGIS Questionnaire <span class="bm">/ Bahagian B: Soal Selidik SAGIS</span></h2>
+      <p>To identify the symptoms you have been experiencing, please tell us how severe your symptoms have been
+      over the last week. If you have any questions, please ask the research staff. Thank you.</p>
+      <p class="bm"><em>Untuk mengenal pasti simptom yang anda alami, sila maklumkan kepada kami berkenaan tahap
+      keterukan simptom yang anda alami pada minggu lepas. Jika terdapat sebarang persoalan, sila rujuk kepada
+      kakitangan penyelidik. Terima kasih.</em></p>
+
+      <p><strong>For the past week, how much have you been bothered by: <span class="bm">/ Sepanjang minggu lepas, sejauh manakah anda diganggu oleh:</span></strong></p>
+
+      <div id="sagisItems"></div>
+
+      <h3>Do you experience any of the following symptoms? <span class="bm">/ Adakah anda mengalami simptom berikut?</span></h3>
+      <div id="sagisYesNo"></div>
+
+      <label>In your own words, what is the main health concern that worries you the most?
+        <span class="bm">/ Apakah masalah kesihatan yang paling utama merisaukan anda?</span></label>
+      <textarea id="sagis_main_concern" rows="2"></textarea>
+
+      <label>In your own words, what is the second health concern that worries you?
+        <span class="bm">/ Apakah masalah kesihatan kedua yang merisaukan anda?</span></label>
+      <textarea id="sagis_second_concern" rows="2"></textarea>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="App.goToStep(0)">Back / Kembali</button>
+        <button class="btn-next" onclick="App.goToStep(2)">Next / Seterusnya</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART C: GAP -->
+  <section class="step hidden" id="step-c" data-step="2">
+    <div class="card">
+      <h2>Part C: GAP Questionnaire — Animated Pictograms <span class="bm">/ Bahagian C: Soal Selidik GAP — Pictogram Animasi</span></h2>
+      <p>You will see a series of short animated pictures showing different stomach or bowel symptoms — the SAME
+      symptoms as before. For each symptom, watch the animations carefully and tick the ONE picture that BEST
+      matches what you have been experiencing over the past week.</p>
+      <p class="bm"><em>Anda akan melihat beberapa gambar animasi ringkas yang menunjukkan simptom perut atau usus
+      — simptom yang SAMA seperti sebelum ini. Bagi setiap simptom, tonton animasi dengan teliti dan tandakan SATU
+      gambar yang PALING SESUAI dengan apa yang anda alami sepanjang minggu lepas.</em></p>
+
+      <div id="gapItems"></div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="App.goToStep(1)">Back / Kembali</button>
+        <button class="btn-next" onclick="App.goToStep(3)">Next / Seterusnya</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART E: FEEDBACK -->
+  <section class="step hidden" id="step-e" data-step="3">
+    <div class="card">
+      <h2>Part E: Overall Feedback <span class="bm">/ Bahagian E: Maklum Balas Keseluruhan</span></h2>
+
+      <label>Overall, the animated pictures (GAP) helped me describe my symptoms better than the written
+        questionnaire (SAGIS) alone.
+        <span class="bm">/ Secara keseluruhan, gambar animasi (GAP) membantu saya menerangkan simptom saya dengan lebih baik berbanding soal selidik bertulis (SAGIS) sahaja.</span></label>
+      <div class="likert-row" id="likert_gap_helped"></div>
+
+      <label>I would feel comfortable using these animated pictures during a doctor's visit.
+        <span class="bm">/ Saya berasa selesa menggunakan gambar animasi ini semasa berjumpa doktor.</span></label>
+      <div class="likert-row" id="likert_comfortable"></div>
+
+      <label>Which version did you find easier to complete overall?
+        <span class="bm">/ Versi manakah yang anda dapati lebih mudah untuk dilengkapkan secara keseluruhan?</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="easier_version" value="sagis"> SAGIS (Written / Bertulis)</label>
+        <label><input type="radio" name="easier_version" value="gap"> GAP (Animated Pictogram / Pictogram Animasi)</label>
+        <label><input type="radio" name="easier_version" value="no_difference"> No Difference / Tiada Perbezaan</label>
+      </div>
+
+      <label>Other comments or suggestions <span class="bm">/ Komen atau cadangan lain</span></label>
+      <textarea id="other_comments" rows="3"></textarea>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="App.goToStep(2)">Back / Kembali</button>
+        <button class="btn-submit" onclick="App.submit()">Submit / Hantar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- THANK YOU -->
+  <section class="step hidden" id="step-done" data-step="done">
+    <div class="card center">
+      <h2>Thank you! <span class="bm">/ Terima kasih!</span></h2>
+      <p>Your responses have been submitted.<br><span class="bm">Maklum balas anda telah dihantar.</span></p>
+    </div>
+  </section>
+
+</main>
+
+<script src="symptoms-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
