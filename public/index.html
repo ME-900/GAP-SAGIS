@@ -56,7 +56,7 @@
       <input type="text" id="name_initials">
 
       <label>Sex <span class="bm">/ Jantina</span></label>
-      <div class="radio-row">
+      <div class="radio-row" id="sexGroup">
         <label><input type="radio" name="sex" value="Male"> Male / Lelaki</label>
         <label><input type="radio" name="sex" value="Female"> Female / Perempuan</label>
       </div>
@@ -65,7 +65,7 @@
       <input type="number" id="age" min="0" max="120">
 
       <label>Race <span class="bm">/ Bangsa</span></label>
-      <div class="radio-row">
+      <div class="radio-row" id="raceGroup">
         <label><input type="radio" name="race" value="Malay"> Malay</label>
         <label><input type="radio" name="race" value="Chinese"> Chinese</label>
         <label><input type="radio" name="race" value="Indian"> Indian</label>
@@ -74,30 +74,30 @@
       </div>
 
       <label>Highest Education Level <span class="bm">/ Tahap Pendidikan</span></label>
-      <div class="radio-row">
+      <div class="radio-row" id="educationGroup">
         <label><input type="radio" name="education_level" value="None/Primary"> None/Primary</label>
         <label><input type="radio" name="education_level" value="Secondary"> Secondary</label>
         <label><input type="radio" name="education_level" value="Tertiary"> Tertiary (Diploma/Degree+)</label>
       </div>
 
-      <label>Contact Number (optional) <span class="bm">/ No. Telefon (pilihan)</span></label>
+      <label>Contact Number <span class="bm">/ No. Telefon</span></label>
       <input type="text" id="contact_number">
 
       <label>Smoking Status <span class="bm">/ Status Merokok</span></label>
-      <div class="radio-row">
+      <div class="radio-row" id="smokingGroup">
         <label><input type="radio" name="smoking_status" value="Never"> Never</label>
         <label><input type="radio" name="smoking_status" value="Ex-smoker"> Ex-smoker</label>
         <label><input type="radio" name="smoking_status" value="Current smoker"> Current smoker</label>
       </div>
 
       <label>Do you wear spectacles/contact lenses for near vision? <span class="bm">/ Adakah anda memakai cermin mata/lensa kontak untuk penglihatan dekat?</span></label>
-      <div class="radio-row">
+      <div class="radio-row" id="glassesGroup">
         <label><input type="radio" name="wears_glasses" value="Yes"> Yes / Ya</label>
         <label><input type="radio" name="wears_glasses" value="No"> No / Tidak</label>
       </div>
 
       <div class="nav-row">
-        <button class="btn-next" onclick="App.goToStep(1)">Next / Seterusnya</button>
+        <button class="btn-next" onclick="App.nextFromA()">Next / Seterusnya</button>
       </div>
     </div>
   </section>
@@ -129,7 +129,7 @@
 
       <div class="nav-row">
         <button class="btn-back" onclick="App.goToStep(0)">Back / Kembali</button>
-        <button class="btn-next" onclick="App.goToStep(2)">Next / Seterusnya</button>
+        <button class="btn-next" onclick="App.nextFromB()">Next / Seterusnya</button>
       </div>
     </div>
   </section>
@@ -149,7 +149,7 @@
 
       <div class="nav-row">
         <button class="btn-back" onclick="App.goToStep(1)">Back / Kembali</button>
-        <button class="btn-next" onclick="App.goToStep(3)">Next / Seterusnya</button>
+        <button class="btn-next" onclick="App.nextFromC()">Next / Seterusnya</button>
       </div>
     </div>
   </section>
@@ -170,7 +170,7 @@
 
       <label>Which version did you find easier to complete overall?
         <span class="bm">/ Versi manakah yang anda dapati lebih mudah untuk dilengkapkan secara keseluruhan?</span></label>
-      <div class="radio-row">
+      <div class="radio-row" id="easierGroup">
         <label><input type="radio" name="easier_version" value="sagis"> SAGIS (Written / Bertulis)</label>
         <label><input type="radio" name="easier_version" value="gap"> GAP (Animated Pictogram / Pictogram Animasi)</label>
         <label><input type="radio" name="easier_version" value="no_difference"> No Difference / Tiada Perbezaan</label>

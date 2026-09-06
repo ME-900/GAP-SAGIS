@@ -31,7 +31,7 @@ const App = (function () {
     const container = document.getElementById("sagisItems");
     let html = "";
     SAGIS_SYMPTOMS.forEach(item => {
-      html += `<div class="sagis-item">
+      html += `<div class="sagis-item" id="sagis-item-${item.key}">
         <p class="item-label"><strong>${item.num}. ${item.en}</strong><br><span class="bm">${item.bm}</span></p>
         <div class="scale-row">`;
       SAGIS_SCALE.forEach(s => {
@@ -49,7 +49,7 @@ const App = (function () {
     const ynContainer = document.getElementById("sagisYesNo");
     let ynHtml = "";
     SAGIS_YESNO.forEach(item => {
-      ynHtml += `<div class="yesno-item">
+      ynHtml += `<div class="yesno-item" id="yesno-item-${item.key}">
         <span>${item.en} <span class="bm">/ ${item.bm}</span></span>
         <div class="radio-row inline">
           <label><input type="radio" name="yn_${item.key}" value="yes" onchange="App.setYesNo('${item.key}', true)"> Yes/Ya</label>
@@ -65,7 +65,7 @@ const App = (function () {
     const container = document.getElementById("gapItems");
     let html = "";
     GAP_SYMPTOMS.forEach(item => {
-      html += `<div class="gap-item">
+      html += `<div class="gap-item" id="gap-item-${item.key}">
         <p class="item-label"><strong>${item.num}. ${item.en}</strong><br><span class="bm">${item.bm}</span></p>
         <div class="video-scale-row">
           ${renderVideoOption(item, "none", 0, "videos/" + NONE_VIDEO)}
@@ -90,9 +90,9 @@ const App = (function () {
     </label>`;
   }
 
-  function setSagisScore(key, value) { state.sagisScores[key] = value; }
-  function setYesNo(key, value) { state.sagisYesNo[key] = value; }
-  function setGapScore(key, value) { state.gapScores[key] = value; }
+  function setSagisScore(key, value) { state.sagisScores[key] = value; clearMissing("sagis-item-" + key); }
+  function setYesNo(key, value) { state.sagisYesNo[key] = value; clearMissing("yesno-item-" + key); }
+  function setGapScore(key, value) { state.gapScores[key] = value; clearMissing("gap-item-" + key); }
 
   function val(id) {
     const el = document.getElementById(id);
@@ -122,7 +122,118 @@ const App = (function () {
     container.innerHTML = html;
   }
 
+  // ---- Validation helpers ----
+  function markMissing(elId) {
+    const el = document.getElementById(elId);
+    if (el) el.classList.add("missing");
+  }
+  function clearMissing(elId) {
+    const el = document.getElementById(elId);
+    if (el) el.classList.remove("missing");
+  }
+  function markFieldMissing(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("missing-field");
+  }
+  function clearAllMissing(root) {
+    root.querySelectorAll(".missing").forEach(el => el.classList.remove("missing"));
+    root.querySelectorAll(".missing-field").forEach(el => el.classList.remove("missing-field"));
+  }
+  function showValidationMessage(stepEl, missingCount) {
+    let msg = stepEl.querySelector(".validation-msg");
+    if (!msg) {
+      msg = document.createElement("div");
+      msg.className = "validation-msg";
+      stepEl.querySelector(".card").insertBefore(msg, stepEl.querySelector(".card").children[1]);
+    }
+    if (missingCount > 0) {
+      msg.innerHTML = `Please answer all required questions before continuing (${missingCount} left).
+        <br><span class="bm">Sila jawab semua soalan yang diperlukan sebelum meneruskan (${missingCount} tertinggal).</span>`;
+      msg.classList.remove("hidden");
+    } else {
+      msg.classList.add("hidden");
+    }
+  }
+  function scrollToFirstMissing(stepEl) {
+    const first = stepEl.querySelector(".missing, .missing-field");
+    if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  // ---- Step validators. Open-text fields (concerns/comments) and
+  // ---- Step validators. Only the SAGIS "concerns" text boxes and the
+  // "other comments" box are intentionally NOT required. ----
+  function validatePartA() {
+    const stepEl = document.getElementById("step-a");
+    clearAllMissing(stepEl);
+    let missing = 0;
+
+    if (!val("name_initials")) { markFieldMissing("name_initials"); missing++; }
+    if (!radioVal("sex")) { markFieldMissing("sexGroup"); missing++; }
+    if (!val("age")) { markFieldMissing("age"); missing++; }
+    if (!radioVal("race")) { markFieldMissing("raceGroup"); missing++; }
+    if (radioVal("race") === "Other" && !val("race_other")) { markFieldMissing("race_other"); missing++; }
+    if (!radioVal("education_level")) { markFieldMissing("educationGroup"); missing++; }
+    if (!val("contact_number")) { markFieldMissing("contact_number"); missing++; }
+    if (!radioVal("smoking_status")) { markFieldMissing("smokingGroup"); missing++; }
+    if (!radioVal("wears_glasses")) { markFieldMissing("glassesGroup"); missing++; }
+
+    showValidationMessage(stepEl, missing);
+    if (missing > 0) scrollToFirstMissing(stepEl);
+    return missing === 0;
+  }
+
+  function validatePartB() {
+    const stepEl = document.getElementById("step-b");
+    clearAllMissing(stepEl);
+    let missing = 0;
+
+    SAGIS_SYMPTOMS.forEach(item => {
+      if (state.sagisScores[item.key] === undefined) { markMissing("sagis-item-" + item.key); missing++; }
+    });
+    SAGIS_YESNO.forEach(item => {
+      if (state.sagisYesNo[item.key] === undefined) { markMissing("yesno-item-" + item.key); missing++; }
+    });
+
+    showValidationMessage(stepEl, missing);
+    if (missing > 0) scrollToFirstMissing(stepEl);
+    return missing === 0;
+  }
+
+  function validatePartC() {
+    const stepEl = document.getElementById("step-c");
+    clearAllMissing(stepEl);
+    let missing = 0;
+
+    GAP_SYMPTOMS.forEach(item => {
+      if (state.gapScores[item.key] === undefined) { markMissing("gap-item-" + item.key); missing++; }
+    });
+
+    showValidationMessage(stepEl, missing);
+    if (missing > 0) scrollToFirstMissing(stepEl);
+    return missing === 0;
+  }
+
+  function validatePartE() {
+    const stepEl = document.getElementById("step-e");
+    clearAllMissing(stepEl);
+    let missing = 0;
+
+    if (!radioVal("likert_gap_helped")) { markFieldMissing("likert_gap_helped"); missing++; }
+    if (!radioVal("likert_comfortable")) { markFieldMissing("likert_comfortable"); missing++; }
+    if (!radioVal("easier_version")) { markFieldMissing("easierGroup"); missing++; }
+
+    showValidationMessage(stepEl, missing);
+    if (missing > 0) scrollToFirstMissing(stepEl);
+    return missing === 0;
+  }
+
+  function nextFromA() { if (validatePartA()) goToStep(1); }
+  function nextFromB() { if (validatePartB()) goToStep(2); }
+  function nextFromC() { if (validatePartC()) goToStep(3); }
+
   async function submit() {
+    if (!validatePartE()) return;
+
     const payload = {
       name_initials: val("name_initials"),
       sex: radioVal("sex"),
@@ -179,5 +290,5 @@ const App = (function () {
 
   document.addEventListener("DOMContentLoaded", init);
 
-  return { goToStep, setSagisScore, setYesNo, setGapScore, submit };
+  return { goToStep, setSagisScore, setYesNo, setGapScore, submit, nextFromA, nextFromB, nextFromC };
 })();
