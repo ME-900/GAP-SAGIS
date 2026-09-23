@@ -94,5 +94,12 @@ CREATE TABLE responses (
     easier_version TEXT,               -- 'sagis' | 'gap' | 'no_difference'
     other_comments TEXT,
 
+    -- Timing (how long the patient took, in seconds)
+    time_total_seconds INTEGER,   -- start (clicking "Start") to final submit
+    time_part_a_seconds INTEGER,  -- demographics
+    time_sagis_seconds INTEGER,   -- Part B, SAGIS written questionnaire
+    time_gap_seconds INTEGER,     -- Part C, GAP video pictograms
+    time_part_e_seconds INTEGER,  -- Part E, feedback
+
     submission_date TIMESTAMP DEFAULT NOW()
 );
