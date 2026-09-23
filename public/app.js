@@ -4,9 +4,22 @@ const App = (function () {
     sagisScores: {},   // key -> 0-4
     sagisYesNo: {},    // key -> true/false
     gapScores: {},     // key -> 0-3
+    timestamps: {},    // key -> ms since epoch, first time each part was entered
   };
 
   const STEP_IDS = ["step-a", "step-b", "step-c", "step-e"];
+
+  // Records the first time each part is entered, so time-per-part can be
+  // computed at submit. Does nothing if already recorded (so going back and
+  // forth doesn't reset a part's start time).
+  function markTime(key) {
+    if (!state.timestamps[key]) state.timestamps[key] = Date.now();
+  }
+
+  function startQuestionnaire() {
+    markTime("start");
+    goToStep(0);
+  }
 
   function goToStep(index) {
     document.querySelectorAll(".step").forEach(el => el.classList.add("hidden"));
@@ -236,12 +249,21 @@ const App = (function () {
     return missing === 0;
   }
 
-  function nextFromA() { if (validatePartA()) goToStep(1); }
-  function nextFromB() { if (validatePartB()) goToStep(2); }
-  function nextFromC() { if (validatePartC()) goToStep(3); }
+  function nextFromA() { if (validatePartA()) { markTime("partB"); goToStep(1); } }
+  function nextFromB() { if (validatePartB()) { markTime("partC"); goToStep(2); } }
+  function nextFromC() { if (validatePartC()) { markTime("partE"); goToStep(3); } }
+
+  // Seconds between two recorded timestamps, or null if either is missing.
+  function secondsBetween(fromKey, toKey) {
+    const a = state.timestamps[fromKey];
+    const b = state.timestamps[toKey];
+    if (!a || !b) return null;
+    return Math.round((b - a) / 1000);
+  }
 
   async function submit() {
     if (!validatePartE()) return;
+    markTime("submitted");
 
     const payload = {
       name_initials: val("name_initials"),
@@ -265,11 +287,16 @@ const App = (function () {
 
       sagis_main_concern: val("sagis_main_concern"),
       sagis_second_concern: val("sagis_second_concern"),
-
       feedback_gap_helped: radioVal("likert_gap_helped") ? parseInt(radioVal("likert_gap_helped"), 10) : null,
       feedback_comfortable: radioVal("likert_comfortable") ? parseInt(radioVal("likert_comfortable"), 10) : null,
       easier_version: radioVal("easier_version"),
       other_comments: val("other_comments"),
+
+      time_total_seconds: secondsBetween("start", "submitted"),
+      time_part_a_seconds: secondsBetween("start", "partB"),
+      time_sagis_seconds: secondsBetween("partB", "partC"),
+      time_gap_seconds: secondsBetween("partC", "partE"),
+      time_part_e_seconds: secondsBetween("partE", "submitted"),
     };
 
     SAGIS_SYMPTOMS.forEach(item => {
@@ -308,5 +335,5 @@ const App = (function () {
 
   document.addEventListener("DOMContentLoaded", init);
 
-  return { goToStep, setSagisScore, setYesNo, setGapScore, submit, nextFromA, nextFromB, nextFromC };
+  return { goToStep, startQuestionnaire, setSagisScore, setYesNo, setGapScore, submit, nextFromA, nextFromB, nextFromC };
 })();
