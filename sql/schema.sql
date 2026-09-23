@@ -13,6 +13,8 @@ CREATE TABLE responses (
     race TEXT,
     race_other TEXT,
     education_level TEXT,
+    income_range TEXT,
+    residence_type TEXT,
     contact_number TEXT,
     smoking_status TEXT,
     wears_glasses TEXT,
