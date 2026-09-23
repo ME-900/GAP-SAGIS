@@ -18,6 +18,20 @@ body {
 .site-header .logo { width: 260px; height: auto; max-width: 45vw; }
 .site-header h1 { margin: 0; font-size: 1.3rem; }
 .site-header .subtitle { margin: 4px 0 0; color: #555; font-size: 0.9rem; }
+.admin-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: #eef1f4;
+  color: #444;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #dde1e5;
+  white-space: nowrap;
+}
+.admin-btn:hover { background: #e2e6ea; }
 
 .bm { color: #6a6f76; font-style: italic; font-weight: normal; }
 

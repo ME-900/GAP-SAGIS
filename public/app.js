@@ -173,6 +173,8 @@ const App = (function () {
     if (!radioVal("race")) { markFieldMissing("raceGroup"); missing++; }
     if (radioVal("race") === "Other" && !val("race_other")) { markFieldMissing("race_other"); missing++; }
     if (!radioVal("education_level")) { markFieldMissing("educationGroup"); missing++; }
+    if (!radioVal("income_range")) { markFieldMissing("incomeGroup"); missing++; }
+    if (!radioVal("residence_type")) { markFieldMissing("residenceGroup"); missing++; }
     if (!val("contact_number")) { markFieldMissing("contact_number"); missing++; }
     if (!radioVal("smoking_status")) { markFieldMissing("smokingGroup"); missing++; }
     if (!radioVal("wears_glasses")) { markFieldMissing("glassesGroup"); missing++; }
@@ -241,6 +243,8 @@ const App = (function () {
       race: radioVal("race"),
       race_other: val("race_other"),
       education_level: radioVal("education_level"),
+      income_range: radioVal("income_range"),
+      residence_type: radioVal("residence_type"),
       contact_number: val("contact_number"),
       smoking_status: radioVal("smoking_status"),
       wears_glasses: radioVal("wears_glasses"),

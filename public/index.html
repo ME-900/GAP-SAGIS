@@ -14,6 +14,7 @@
     <h1>Comparative Study Questionnaire<br><span class="bm">Buku Soal Selidik Kajian Perbandingan</span></h1>
     <p class="subtitle">SAGIS (Structured Assessment of Gastrointestinal Symptoms) vs GAP (Gastrointestinal Animated Pictograms)</p>
   </div>
+  <a href="login.html" class="admin-btn">Admin</a>
 </header>
 
 <div class="progress-bar" id="progressBar">
@@ -75,9 +76,29 @@
 
       <label>Highest Education Level <span class="bm">/ Tahap Pendidikan</span></label>
       <div class="radio-row" id="educationGroup">
-        <label><input type="radio" name="education_level" value="None/Primary"> None/Primary</label>
-        <label><input type="radio" name="education_level" value="Secondary"> Secondary</label>
-        <label><input type="radio" name="education_level" value="Tertiary"> Tertiary (Diploma/Degree+)</label>
+        <label><input type="radio" name="education_level" value="None"> None <span class="bm">/ Tiada</span></label>
+        <label><input type="radio" name="education_level" value="Primary"> Primary <span class="bm">/ Sekolah Rendah</span></label>
+        <label><input type="radio" name="education_level" value="Secondary"> Secondary <span class="bm">/ Sekolah Menengah</span></label>
+        <label><input type="radio" name="education_level" value="University"> University <span class="bm">/ Universiti (Diploma/Ijazah)</span></label>
+        <label><input type="radio" name="education_level" value="Postgraduate"> Postgraduate <span class="bm">/ Pascasiswazah (Sarjana/PhD)</span></label>
+      </div>
+
+      <label>Monthly Household Income Range <span class="bm">/ Julat Pendapatan Isi Rumah Bulanan</span></label>
+      <div class="radio-row" id="incomeGroup">
+        <label><input type="radio" name="income_range" value="Below RM2,000"> Below RM 2,000</label>
+        <label><input type="radio" name="income_range" value="RM2,000-RM3,999"> RM 2,000 – RM 3,999</label>
+        <label><input type="radio" name="income_range" value="RM4,000-RM6,999"> RM 4,000 – RM 6,999</label>
+        <label><input type="radio" name="income_range" value="RM7,000-RM10,999"> RM 7,000 – RM 10,999</label>
+        <label><input type="radio" name="income_range" value="RM11,000+"> RM 11,000 and above</label>
+        <label><input type="radio" name="income_range" value="Prefer not to say"> Prefer not to say <span class="bm">/ Tidak mahu nyatakan</span></label>
+      </div>
+
+      <label>Type of Residence <span class="bm">/ Jenis Kediaman</span></label>
+      <div class="radio-row" id="residenceGroup">
+        <label><input type="radio" name="residence_type" value="City/Urban"> City / Urban <span class="bm">/ Bandar</span></label>
+        <label><input type="radio" name="residence_type" value="Suburb"> Suburb <span class="bm">/ Pinggir Bandar</span></label>
+        <label><input type="radio" name="residence_type" value="Kampung/Village"> Kampung / Village <span class="bm">/ Kampung</span></label>
+        <label><input type="radio" name="residence_type" value="Rural/Other"> Rural / Other <span class="bm">/ Luar Bandar / Lain-lain</span></label>
       </div>
 
       <label>Contact Number <span class="bm">/ No. Telefon</span></label>
