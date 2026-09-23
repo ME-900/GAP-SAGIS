@@ -175,6 +175,13 @@ const App = (function () {
     if (!radioVal("education_level")) { markFieldMissing("educationGroup"); missing++; }
     if (!radioVal("income_range")) { markFieldMissing("incomeGroup"); missing++; }
     if (!radioVal("residence_type")) { markFieldMissing("residenceGroup"); missing++; }
+    if (!radioVal("employment_status")) { markFieldMissing("employmentGroup"); missing++; }
+    if (!val("household_size")) { markFieldMissing("household_size"); missing++; }
+    if (!val("num_dependents")) { markFieldMissing("num_dependents"); missing++; }
+    if (!radioVal("clinic_distance")) { markFieldMissing("clinicDistanceGroup"); missing++; }
+    if (!radioVal("transport_mode")) { markFieldMissing("transportGroup"); missing++; }
+    if (!radioVal("internet_access")) { markFieldMissing("internetGroup"); missing++; }
+    if (!radioVal("health_literacy")) { markFieldMissing("literacyGroup"); missing++; }
     if (!val("contact_number")) { markFieldMissing("contact_number"); missing++; }
     if (!radioVal("smoking_status")) { markFieldMissing("smokingGroup"); missing++; }
     if (!radioVal("wears_glasses")) { markFieldMissing("glassesGroup"); missing++; }
@@ -245,6 +252,13 @@ const App = (function () {
       education_level: radioVal("education_level"),
       income_range: radioVal("income_range"),
       residence_type: radioVal("residence_type"),
+      employment_status: radioVal("employment_status"),
+      household_size: val("household_size") ? parseInt(val("household_size"), 10) : null,
+      num_dependents: val("num_dependents") ? parseInt(val("num_dependents"), 10) : null,
+      clinic_distance: radioVal("clinic_distance"),
+      transport_mode: radioVal("transport_mode"),
+      internet_access: radioVal("internet_access"),
+      health_literacy: radioVal("health_literacy"),
       contact_number: val("contact_number"),
       smoking_status: radioVal("smoking_status"),
       wears_glasses: radioVal("wears_glasses"),
