@@ -54,6 +54,8 @@ app.get("/responses-data", (req, res) => {
 const PART_A_COLUMNS = [
     "name_initials", "sex", "age", "race", "race_other",
     "education_level", "income_range", "residence_type",
+    "employment_status", "household_size", "num_dependents",
+    "clinic_distance", "transport_mode", "internet_access", "health_literacy",
     "contact_number", "smoking_status", "wears_glasses",
 ];
 const SAGIS_SCORE_COLUMNS = SAGIS_SYMPTOMS.map(s => `sagis_${s.key}`);
@@ -131,6 +133,13 @@ app.get("/export", async (req, res) => {
             { header: "Education Level", key: "education_level", width: 18 },
             { header: "Monthly Income Range", key: "income_range", width: 20 },
             { header: "Residence Type", key: "residence_type", width: 18 },
+            { header: "Employment Status", key: "employment_status", width: 18 },
+            { header: "Household Size", key: "household_size", width: 14 },
+            { header: "Number of Dependents", key: "num_dependents", width: 16 },
+            { header: "Clinic Distance/Time", key: "clinic_distance", width: 18 },
+            { header: "Transport Mode", key: "transport_mode", width: 18 },
+            { header: "Internet Access at Home", key: "internet_access", width: 18 },
+            { header: "Health Literacy Screen", key: "health_literacy", width: 20 },
             { header: "Contact Number", key: "contact_number", width: 15 },
             { header: "Smoking Status", key: "smoking_status", width: 15 },
             { header: "Wears Glasses/Lenses", key: "wears_glasses", width: 15 },
