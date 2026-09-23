@@ -53,7 +53,8 @@ app.get("/responses-data", (req, res) => {
 // ---- Build the ordered column list once, from the shared symptom data ----
 const PART_A_COLUMNS = [
     "name_initials", "sex", "age", "race", "race_other",
-    "education_level", "contact_number", "smoking_status", "wears_glasses",
+    "education_level", "income_range", "residence_type",
+    "contact_number", "smoking_status", "wears_glasses",
 ];
 const SAGIS_SCORE_COLUMNS = SAGIS_SYMPTOMS.map(s => `sagis_${s.key}`);
 const SAGIS_YESNO_COLUMNS = SAGIS_YESNO.map(item => `sagis_${item.key}`);
@@ -128,6 +129,8 @@ app.get("/export", async (req, res) => {
             { header: "Race", key: "race", width: 12 },
             { header: "Race (Other)", key: "race_other", width: 12 },
             { header: "Education Level", key: "education_level", width: 18 },
+            { header: "Monthly Income Range", key: "income_range", width: 20 },
+            { header: "Residence Type", key: "residence_type", width: 18 },
             { header: "Contact Number", key: "contact_number", width: 15 },
             { header: "Smoking Status", key: "smoking_status", width: 15 },
             { header: "Wears Glasses/Lenses", key: "wears_glasses", width: 15 },
