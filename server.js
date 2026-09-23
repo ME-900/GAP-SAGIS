@@ -63,6 +63,10 @@ const SAGIS_YESNO_COLUMNS = SAGIS_YESNO.map(item => `sagis_${item.key}`);
 const SAGIS_TEXT_COLUMNS = ["sagis_main_concern", "sagis_second_concern"];
 const GAP_SCORE_COLUMNS = GAP_SYMPTOMS.map(s => `gap_${s.key}`);
 const PART_E_COLUMNS = ["feedback_gap_helped", "feedback_comfortable", "easier_version", "other_comments"];
+const TIMING_COLUMNS = [
+    "time_total_seconds", "time_part_a_seconds", "time_sagis_seconds",
+    "time_gap_seconds", "time_part_e_seconds",
+];
 
 const ALL_COLUMNS = [
     ...PART_A_COLUMNS,
@@ -71,6 +75,7 @@ const ALL_COLUMNS = [
     ...SAGIS_TEXT_COLUMNS,
     ...GAP_SCORE_COLUMNS,
     ...PART_E_COLUMNS,
+    ...TIMING_COLUMNS,
 ];
 
 app.post("/submit", (req, res) => {
@@ -163,6 +168,11 @@ app.get("/export", async (req, res) => {
             { header: "Feedback: Comfortable using GAP (1-5)", key: "feedback_comfortable", width: 24 },
             { header: "Easier version", key: "easier_version", width: 15 },
             { header: "Other comments", key: "other_comments", width: 30 },
+            { header: "Total Completion Time (sec)", key: "time_total_seconds", width: 20 },
+            { header: "Part A Time (sec)", key: "time_part_a_seconds", width: 16 },
+            { header: "SAGIS Time (sec)", key: "time_sagis_seconds", width: 16 },
+            { header: "GAP Time (sec)", key: "time_gap_seconds", width: 16 },
+            { header: "Part E Time (sec)", key: "time_part_e_seconds", width: 16 },
             { header: "Submission Date", key: "submission_date", width: 22 }
         );
 
