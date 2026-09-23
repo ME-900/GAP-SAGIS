@@ -21,6 +21,8 @@ lines.push("    age INTEGER,");
 lines.push("    race TEXT,");
 lines.push("    race_other TEXT,");
 lines.push("    education_level TEXT,");
+lines.push("    income_range TEXT,");
+lines.push("    residence_type TEXT,");
 lines.push("    contact_number TEXT,");
 lines.push("    smoking_status TEXT,");
 lines.push("    wears_glasses TEXT,");
